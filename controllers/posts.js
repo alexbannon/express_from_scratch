@@ -1,5 +1,12 @@
 var express = require("express");
 var router = express.Router();
+var Post = require("../db/connection").models.Post
+
+
+function error(response, message){
+  response.status(500);
+  response.json({error: message})
+}
 
 router.get("/posts", function(req, res) {
   res.send("index of posts");

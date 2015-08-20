@@ -9,7 +9,9 @@ function error(response, message){
 }
 
 router.get("/posts", function(req, res) {
-  res.send("index of posts");
+  Post.findAll().then(function(posts){
+    res.json(posts);
+  })
 })
 router.get("/posts/:id", function(req, res) {
   res.send("show post #" + req.params.id);

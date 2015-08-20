@@ -20,6 +20,17 @@ router.get("/posts/:id", function(req, res) {
   });
 });
 
+router.get("/posts/:id/comments", function(req,res){
+  Post.findById(req.params.id).then(function(post){
+    if(!post){
+      return error(res, "post not found");
+    }
+    post.getComments().then(function(comments){
+      res.json(comments);
+    })
+  })
+})
+
 router.post("/posts", function(req,res) {
   Post.create(req.body).then(function(post){
     res.json(post);

@@ -1,6 +1,7 @@
-module.exports = function(sequelize, Sequelize) {
+module.exports = function(sequelize, DataTypes) {
   var model = sequelize.define("post", {
-    title: Sequelize.STRING,
-    post_content: Sequelize.STRING,
+    title: DataTypes.STRING,
+    post_content: DataTypes.STRING,
   })
+  return model;
 }

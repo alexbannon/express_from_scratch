@@ -1,7 +1,7 @@
 var Sequelize = require("sequelize");
 var sequelize = new Sequelize("postgres:///express_from_scratch");
-var Artist = sequelize.import("../models/artist");
-var Song = sequelize.import("../models/song");
+var Post = sequelize.import("../models/post");
+var Comment = sequelize.import("../models/comment");
 
 Comment.belongsTo(Post);
 Post.hasMany(Comment);

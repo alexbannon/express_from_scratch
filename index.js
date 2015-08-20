@@ -13,9 +13,11 @@ app.listen(3000, function(){
 })
 
 var postsController = require("./controllers/posts");
+var commentsController = require("./controllers/comments")
 
 app.use("/", postsController);
+app.use("/", commentsController);
 
 app.get("/", function(req, res){
-  res.send("hello world")
-})
+  res.render("index", {})
+});

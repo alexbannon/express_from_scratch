@@ -11,24 +11,63 @@ function error(response, message){
 router.get("/posts", function(req, res) {
   Post.findAll().then(function(posts){
     res.json(posts);
-  })
-})
+  });
+});
+
 router.get("/posts/:id", function(req, res) {
-  res.send("show post #" + req.params.id);
-})
-router.get("/posts/new", function(req, res) {
-  res.send("render new form for posts");
-})
-router.get("/posts/:id/edit", function(req, res) {
-  res.send("render edit form for post #"+req.params.id);
-})
+  Post.findById(req.params.id).then(function(post){
+    res.json(post);
+  });
+});
+
 router.post("/posts", function(req,res) {
-  res.json(req.body)
-})
+  Post.create(req.body).then(function(post){
+    res.json(post);
+  });
+});
+
 router.put("/posts/:id", function(req,res){
-  res.json("")
+  Post.findById(req.params.id).then(function(post){
+    if(!post){
+      return error(res, "post not found");
+    }
+    post.update(req.body).then(function(updatedPost){
+      res.json(updatedPost);
+    });
+  });
+});
+
+router.patch("/posts/:id", function(req,res){
+  Post.findById(req.params.id).then(function(post){
+    if(!post){
+      return error(res, "post not found");
+    }
+    post.updateAttributes(req.body).then(function(updatedPost){
+      res.json(updatedPost);
+    });
+  });
 })
+
 router.delete("/posts/:id", function(req,res){
-  res.json("")
-})
+  Post.findById(req.params.id).then(function(post){
+    if(!post){
+      return error(res, "post not found");
+    }
+    post.destroy().then(function(){
+      res.json({success: true});
+    });
+  });
+});
+
+/////////////////////////////////
+// form pages that I'll probably delete, but might need later
+// router.get("/posts/new", function(req, res) {
+//   res.send("render new form for posts");
+// });
+//
+// router.get("/posts/:id/edit", function(req, res) {
+//   res.send("render edit form for post #"+req.params.id);
+// });
+/////////////////////////////////
+
 module.exports = router;

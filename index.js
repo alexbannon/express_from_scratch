@@ -5,7 +5,7 @@ var path = require("path"); // if I remember correctly, only allows calling of f
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
-app.use("/", express.static(path.join(__dirname + "/public")));
+app.use("/public", express.static(path.join(__dirname + "/public")));
 app.set("view engine", "hbs");
 
 app.listen(3000, function(){

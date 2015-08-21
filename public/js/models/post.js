@@ -18,3 +18,21 @@ Post.fetch = function(){
   });
   return request;
 }
+
+Post.prototype = {
+  fetchComments: function() {
+    var url = "http://localhost:3000/posts/"+this.id+"/comments";
+    var request = $.getJSON(url)
+    .then(function(response){
+      var comments = [];
+      for(var i = 0; i < response.length; i++){
+        comments.push(new Comment(response[i]));
+      }
+      return comments;
+    })
+    .fail(function(response){
+      console.log("comments failed to load in post model");
+    })
+    return request;
+  }
+}
